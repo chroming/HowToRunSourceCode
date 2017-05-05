@@ -8,9 +8,11 @@ Python源码一般都是`py`格式。
 
 Python官方下载地址：https://www.python.org/downloads/
 
+Python分为两个大版本，Python 2和Python 3，两个版本之间不完全兼容。所以首先要知道你的源码是Python 2的还是Python 3的。一般源码说明都会写清楚是用哪个版本开发的。
+
 ### Windows
 
-Python分为两个大版本，Python 2和Python 3，两个版本之间不完全兼容。所以首先要知道你的源码是Python 2的还是Python 3的。一般源码说明都会写清楚是用哪个版本开发的。找到之后直接在官网下载最新版就可以了。安装时在`Customize Python `这步必须保证`pip`、`Add python.exe to Path`勾选，其他的按需勾选，如果不知道需要哪些的话就全部勾选。
+直接在官网下载Python 2（目前最新版是2.7.13）或Python 3（目前最新版是3.6.1）安装包即可。安装时在`Customize Python `这步必须保证`pip`、`Add python.exe to Path`勾选，其他的按需勾选，如果不知道需要哪些的话就全部勾选。
 
 ### macOS
 
