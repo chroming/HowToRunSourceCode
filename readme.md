@@ -1,18 +1,20 @@
 # 如何运行Python源码
 
-Python源码一般都是`py`格式。
+本文档适用于不熟悉Python且想通过源码运行Python程序的用户。
 
-## 安装运行环境
+## 安装Python运行环境
 
-要运行Python源码必须要先安装Python运行环境。
+要运行Python源码必须要先安装Python运行环境。官方下载地址：https://www.python.org/downloads/
 
-Python官方下载地址：https://www.python.org/downloads/
+Python分为两个大版本，Python 2和Python 3，两个版本之间不完全兼容。
 
-Python分为两个大版本，Python 2和Python 3，两个版本之间不完全兼容。所以首先要知道你的源码是Python 2的还是Python 3的。一般源码说明都会写清楚是用哪个版本开发的。
+首先要知道源码是用Python 2写的还是用Python 3写的，一般源码的文档都会写清楚是用哪个版本开发的。
 
 ### Windows
 
-直接在官网下载Python 2（目前最新版是2.7.13）或Python 3（目前最新版是3.6.1）安装包即可。安装时在`Customize Python `这步必须保证`pip`、`Add python.exe to Path`勾选，其他的按需勾选，如果不知道需要哪些的话就全部勾选。
+直接在官网下载最新版Python 2（目前最新版是2.7.13）或Python 3（目前最新版是3.6.2）安装包即可。
+
+安装时在`Customize Python `这步必须保证`pip`、`Add python.exe to Path`勾选，其他的按需勾选，如果不知道需要哪些的话就全部勾选。
 
 ### macOS
 
@@ -20,25 +22,43 @@ macOS自带了Python 2。如果你的源码是Python 2编写的话就不需要�
 
 `brew install python3`
 
+### Linux
+
+`redhat`系：
+
+`yum install python`
+
+或
+
+`yum install python3`
+
+`debian`系：
+
+`apt-get install python`
+
+或
+
+`apt-get install python3`
+
 ## 安装第三方模块
 
 ### 查找源码用了什么第三方模块
 
-大部分Python程序中都会使用到第三方模块，如果想直接运行源码的话也要手动安装好第三方模块。
+大部分Python程序中都会使用到不同的第三方模块，如果想直接运行源码的话也要手动安装好源码中调用的第三方模块。
 
 如果你要运行的源码包含所需第三方模块列表的话可以直接根据列表来安装。常见的列表提供形式是`requirement.txt`, `requirements.txt`或`pipfile`。
 
-不过有些项目没有提供使用到的第三方模块列表，毕竟希望直接运行源码的是少数。这时候就要在源码中看程序使用到哪些第三方模块了。
+不过有些项目没有提供使用到的第三方模块列表，这时候就要在源码中看程序使用到哪些第三方模块了。
 
 有以下两种方法可以找到使用到的第三方模块：
 
-1. 直接用文本编辑器打开源码，在里面找`import ***`或者`from *** import ***`的语句，一般来说都写在源码开头，少数情况会在源码其他地方。其中`import ***`中`import` 后面（比如`import re`中的`re`）以及`from *** import ***`中`from`后面(比如`from lxml import html` 中的`lxml`)的名称就是使用到的模块，但不一定是第三方模块，如果是自带模块的话就不需要安装了。判断方法是跟标准模块列表对一下，不在列表里面就是第三方模块。
+1. 直接用文本编辑器打开源码，在里面找`import ***`或者`from *** import ***`的语句，一般来说都写在源码开头，少数情况会在源码其他地方。其中`import ***`中`import` 后（比如`import re`中的`re`）以及`from *** import ***`中`from`后(比如`from lxml import html` 中的`lxml`)的名称就是使用到的模块，但不一定是第三方模块，如果是自带模块的话就不需要安装了。判断方法是跟标准模块列表对一下，不在列表里面就是第三方模块。
 
    Python 2 自带模块列表：https://docs.python.org/2.7/py-modindex.html
 
    Python 3 自带模块列表：https://docs.python.org/3/py-modindex.html
 
-2. 不管用了啥库，先运行一下试试。运行源码的方法可以直接看下个步骤，然后看到报错了：
+2. 不管用了啥库，先运行一下试试。运行源码的方法可以直接看下个步骤，然后终端会有报错：
 
    ```
    Traceback (most recent call last):
@@ -46,7 +66,7 @@ macOS自带了Python 2。如果你的源码是Python 2编写的话就不需要�
    ImportError: No module named requests
    ```
 
-   这个错误提示的最后一行说明了没有模块`requests`，这时候手动安装即可。安装好之后再运行，还有这个报错的话就会是另一个模块名。依次直到可以成功运行。
+   这个错误提示的最后一行说明了没有模块`requests`，这时候手动安装即可。安装好之后再运行，还有这个报错的话就会是另一个模块名。依次安装直到可以成功运行。
 
    ###　安装模块
 
@@ -62,9 +82,11 @@ macOS自带了Python 2。如果你的源码是Python 2编写的话就不需要�
 
    `pip install -r requirement.txt`
 
+或
+
    `pip install - r requirements.txt`
 
-   如果提示：
+   如果此时提示：
 
    ```
    Could not find a version that satisfies the requirement rrrwrs (from versions: )
@@ -106,16 +128,6 @@ macOS自带了Python 2。如果你的源码是Python 2编写的话就不需要�
 
    1. 运行源码的过程中可能会遇到一些更麻烦的问题，但既然选择了运行源码，就要面对这些可能出现的问题，并通过搜索引擎自行解决，这也是提升水平的途径。
    2. 程序运行过程中如果遇到了程序bug可向开发者提交。 
-
-   ​
-
-   ​
-
-   ​
-
-   ​
-
-   ​
 
 
 
